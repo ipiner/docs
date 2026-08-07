@@ -1,0 +1,20 @@
+{
+  "name": "pin-docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "docs:dev": "vitepress dev",
+    "docs:build": "vitepress build",
+    "docs:preview": "vitepress preview"
+  },
+  "devDependencies": {
+    "vitepress": "^1.6.4",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.0.4",
+    "prettier": "^3.8.3"
+  },
+  "packageManager": "pnpm@11.1.2",
+  "engines": {
+    "node": ">=24"
+  }
+}
