@@ -226,12 +226,6 @@ use Pin\Validation\Rules\Enum;
     'required',
     new Enum(UserStatus::class),
 ]
-
-// 或者
-'status' => [
-    'required',
-    Fake::enum(UserStatus::class),
-]
 ```
 
 例如：
