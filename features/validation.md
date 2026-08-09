@@ -206,7 +206,7 @@ $rules = [
 
 ```php
 use App\Models\User;
-use Pin\Actions\Action;
+use Pin\Action\Action;
 use Pin\Validation\QueryableRules as Queryable;
 
 class ListUsersAction extends Action

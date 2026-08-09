@@ -375,7 +375,7 @@ Tree Action 提供树节点创建和更新时的基础校验能力。
 
 ```php
 use Override;
-use Pin\Tree\Actions\Action;
+use Pin\Tree\Action;
 
 class CreateCategoryAction extends Action
 {

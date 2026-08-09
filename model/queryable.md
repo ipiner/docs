@@ -13,7 +13,7 @@ Pin 的查询构建用于把请求参数转换为 Eloquent 查询条件。
 ::: code-group
 
 ```php [声明查询规则]
-use Pin\Actions\Action;
+use Pin\Action\Action;
 use Pin\Validation\QueryableRules;
 
 class ListLogsAction extends Action
