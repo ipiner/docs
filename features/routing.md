@@ -223,7 +223,7 @@ case Profile = 'GET:/api/users/profile';
 
 除了名称、处理器和中间件外，Pin 还提供了一些用于特定场景的路由属性。
 
-::: details 标题、权限与测试
+::: details 标题与测试
 
 #### 路由标题
 
@@ -247,14 +247,14 @@ use Pin\Route\Attributes\Action;
 case Index = 'GET:/api/users';
 ```
 
-#### 断言方法
+#### 测试方法
 
-`AssertionMethod` 用于为 HTTP 测试指定默认的[断言方法](/testing/http-tests#assertions)。
+`TestingMethod` 用于为 HTTP 批量测试指定默认的[测试方法](/testing/http-tests#tests)。
 
 ```php
-use Pin\Route\Attributes\AssertionMethod;
+use Pin\Route\Attributes\TestingMethod;
 
-#[AssertionMethod(Pin\Route\Testing\AssertionMethod::Successful)]
+#[TestingMethod(Pin\Route\Testing\TestingMethod::Successful)]
 case Index = 'GET:/api/users';
 ```
 
@@ -284,15 +284,6 @@ use Pin\Password\Middleware\DecodePassword;
 UserRoute::Create->register(
     handler: [UserController::class, 'store'],
     middlewares: [DecodePassword::class, 'verified'],
-);
-```
-
-指定权限标识：
-
-```php
-UserRoute::Create->register(
-    handler: [UserController::class, 'store'],
-    accessCode: 'users.create'
 );
 ```
 
@@ -362,7 +353,6 @@ public static function registerRoutes(): void
 {
     self::Generate->register(
         handler: [CaptchaController::class, 'generate'],
-        accessCode: false,
     );
 
     self::AvailableRules->register(
@@ -547,7 +537,7 @@ UserRoute::Show->route(['id' => 1], false); // /api/users/1
 ```php
 // UserTest.php
 
-UserRoute::Index->testJson($this)->assertPaginated();
+UserRoute::Index->testJson($this)->paginated();
 ```
 
 通过 `testing()` 方法：

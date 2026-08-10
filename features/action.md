@@ -422,7 +422,7 @@ $data = CreateUserAction::fake([
 it(creates('user'), function () {
     UserRoute::Create->testing($this)
         ->fakePayload()
-        ->assertCreated();
+        ->created();
 });
 ```
 
@@ -432,7 +432,7 @@ it(creates('user'), function () {
 it(creates('user'), function () {
     UserRoute::Create->testing($this)
         ->fakePayload(['username' => 'pin'])
-        ->assertCreated();
+        ->created();
 });
 ```
 

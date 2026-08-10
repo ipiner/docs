@@ -522,7 +522,7 @@ UserRoute::Create->testing($this)
     );
 ```
 
-## 批量测试
+## 批量测试 {#tests}
 
 `tests()` 用于创建测试套件，套件包含多个路由测试任务。
 
@@ -564,7 +564,7 @@ UserRoute::tests($this)
 ```php
 use Pin\Route\Attributes\TestingMethod;
 
-#[AssertionMethod(\Pin\Route\Testing\TestingMethod::Successful)]
+#[TestingMethod(\Pin\Route\Testing\TestingMethod::Successful)]
 case Search = 'GET:/api/users/search';
 ```
 
