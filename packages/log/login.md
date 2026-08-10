@@ -51,6 +51,12 @@ Log::create($payload);
 
 登录日志模块提供查询接口，用于查看登录日志及获取筛选项。
 
+<p>
+<a href="/images/login-log.png" target="_blank">
+    <img src="/images/login-log.png" />
+</a>
+</p>
+
 ### 登录日志列表
 
 `GET /api/system/log/logins` 用于分页查询登录日志，支持按业务对象、操作者、操作时间等条件筛选。

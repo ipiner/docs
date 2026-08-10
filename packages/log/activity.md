@@ -46,6 +46,12 @@ Log::create($payload);
 
 行为日志模块提供查询接口，用于查看行为日志及获取筛选项。
 
+<p>
+<a href="/images/activity-log.png" target="_blank">
+  <img src="/images/activity-log.png" />
+</a>
+</p>
+
 ### 行为日志列表
 
 `GET /api/system/log/activities` 用于分页查询行为日志，支持按业务对象、操作者、操作时间等条件筛选。

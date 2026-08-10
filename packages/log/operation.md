@@ -158,6 +158,12 @@ User::withoutOperationLogging(function () use ($user) {
 
 操作日志模块提供查询接口，用于查看操作记录及获取筛选项。
 
+<p>
+<a href="/images/operation-log.png" target="_blank">
+    <img src="/images/operation-log.png" />
+</a>
+</p>
+
 ### 操作日志列表
 
 `GET /api/system/log/operations` 用于分页查询操作日志，支持按业务对象、操作者、操作时间等条件筛选。
