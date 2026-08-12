@@ -14,12 +14,6 @@ Pin 遵循约定优于配置的设计理念。
 - 领域：`Category`
 - 动作：`Create`
 
-::: info
-类名表达意图，目录表达归属。
-
-统一的命名与目录约定，是推导规则的基础。
-:::
-
 ## 模块 {#module}
 
 模块用于划分业务边界。
@@ -241,39 +235,7 @@ App\Actions\Dummy\IndexAction
 如果 Route Case 上声明了 `#[Action(...)]`，Pin 将优先使用显式配置，并跳过默认推导。
 :::
 
-## 推荐命名
-
-建议优先遵循 Pin 的默认命名约定：
-
-| 类型        | 推荐写法                                                    |
-| ----------- | ----------------------------------------------------------- |
-| 路由枚举    | `App\Routes\Product\CategoryRoute`                          |
-| 模块控制器  | `App\Modules\Product\CategoryController`                    |
-| 领域控制器  | `App\Modules\Product\Category\CategoryController`           |
-| 模型        | `App\Models\Product\Category`                               |
-| 工厂        | `Database\Factories\Product\CategoryFactory`                |
-| 领域 Action | `App\Modules\Product\Category\Actions\CreateCategoryAction` |
-
-遵循这些命名约定后，大多数场景无需额外配置。
-
-当项目结构逐渐复杂时，建议保持以下命名语义：
-
-```text
-模块名表达业务边界
-领域名表达业务对象
-Case 名表达具体动作
-```
-
-例如：
-
-```text
-Product              -> 商品模块
-Category             -> 分类领域
-Create               -> 创建动作
-CreateCategoryAction -> 创建分类动作
-```
-
-## 什么时候显式指定
+## 显式指定
 
 大多数场景下，遵循 Pin 的默认命名约定即可。
 
@@ -291,7 +253,6 @@ CreateCategoryAction -> 创建分类动作
 - 在 Route Case 上使用 `#[Action(...)]` 指定 Action。
 - 在 Route Case 上使用 `#[Name(...)]` 或 `#[Middleware(...)]` 补充路由配置。
 - 在测试链中使用 `withDomain()`、`withAction()`、`withFactory()`、`withModel()` 临时指定对象。
-- 如果使用 `Pin\Support\Traits\HasModel`，可以通过 `withModel()` 方法指定模型。
 
 ::: info
 优先遵循约定，仅在默认推导无法准确表达业务结构时使用显式配置。

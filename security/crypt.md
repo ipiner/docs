@@ -10,8 +10,6 @@ Pin 提供 AES 对称加密、RSA 非对称加密，以及请求字段自动解�
 
 配置文件 `config/pin/crypt.php`。
 
-:::
-
 ## AES 对称加密 {#aes}
 
 使用配置密钥：
