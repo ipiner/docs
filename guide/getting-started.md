@@ -81,7 +81,7 @@ http://yourdomain/api/debug/routes
 
 [https://github.com/ipiner/admin](https://github.com/ipiner/admin)
 
-该项目是一个基于 Pin 开发的极简后台管理系统 API 示例，完整展示 Pin 在实际项目中的应用：
+该项目是一个基于 Pin 开发的极简后台管理系统 API 示例，展示 Pin 在实际项目中的应用：
 
 - [路由枚举](/features/routing)：使用枚举定义路由，并贯穿路由注册、URL 生成与 HTTP 测试。
 - [Action（操作）](/features/action)：使用 Action 组织业务流程，保持业务逻辑清晰、独立且易于测试。
@@ -89,4 +89,4 @@ http://yourdomain/api/debug/routes
 - [统一响应](/features/response)：使用标准化响应结构，保持接口返回格式一致。
 - [错误码](/features/errors)：使用枚举定义错误码，统一 API 错误规范。
 - [HTTP 测试](/testing/http-tests)：基于路由枚举构建测试请求，保持接口测试与路由定义一致。
-<!-- - [API 文档生成](/digging-deeper/scramble)：根据代码结构和类型生成接口文档，保持文档与代码同步。 -->
+- [API 文档](/digging-deeper/scramble)：根据代码结构和类型生成接口文档，保持文档与代码同步。

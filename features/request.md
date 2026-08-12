@@ -69,9 +69,9 @@ if ($request->isReading()) {
 - `GET`
 - `OPTIONS`
 
-## 判断 API 文档请求
+## 判断 API 文档请求 {#isFromApiDocument}
 
-`isFromApiDocument()` 方法用于判断当前请求是否来自 API 文档：
+`isFromApiDocument()` 用于判断当前请求是否来自 API 文档：
 
 ```php
 if ($request->isFromApiDocument()) {
@@ -79,15 +79,65 @@ if ($request->isFromApiDocument()) {
 }
 ```
 
-该方法通过 `app.x_api_document` 配置进行匹配。
+判断需要同时满足：
 
-::: info
+1. `app.x_api_document.enabled` 已启用。
+2. 请求来源与 `app.x_api_document.allows` 中的配置匹配。
 
-- `app.x_api_document.enabled` 控制是否启用 API 文档请求识别，默认仅在非生产环境启用；
-- `app.x_api_document.allows` 配置允许的文档来源，支持请求头 `x-api-document` 和请求来源 URI，并支持通过环境变量设置：
+Pin 支持通过请求头和 `Referer` 两种方式识别 API 文档来源。
+
+### 请求头
+
+API 文档可以通过 `x-api-document` 请求头标识来源：
+
+```http
+x-api-document: Scramble
+```
+
+允许的来源通过 `X_API_DOCUMENT_ALLOWS` 配置：
 
 ```ini
 X_API_DOCUMENT_ALLOWS=Apifox,Scramble,docs/api
 ```
 
-:::
+例如：
+
+```http
+x-api-document: Scramble
+```
+
+当 `Scramble` 出现在允许列表中时，请求会被识别为 API 文档请求。
+
+### Referer
+
+如果请求没有提供 `x-api-document` 请求头，Pin 会继续检查 `Referer` 的路径。
+
+例如：
+
+```text
+https://example.com/docs/api
+```
+
+对应路径：
+
+```text
+/docs/api
+```
+
+当 `docs/api` 出现在允许列表中时，请求会被识别为 API 文档请求。
+
+### 配置
+
+`x_api_document` 位于 `config/app.php`：
+
+```php
+'x_api_document' => [
+    'enabled' => (bool) env(
+        'X_API_DOCUMENT_ENABLED',
+        env('APP_ENV') !== 'production'
+    ),
+    'allows' => Str::explode(
+        env('X_API_DOCUMENT_ALLOWS', 'Apifox,Scramble,docs/api')
+    ),
+],
+```

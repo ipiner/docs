@@ -64,7 +64,7 @@ export default defineConfig({
           { text: "ID 生成", link: "/digging-deeper/id-generate" },
           { text: "Tree（树）", link: "/digging-deeper/tree" },
           { text: "支撑工具", link: "/digging-deeper/support" },
-          // { text: "接口文档生成", link: "/digging-deeper/scramble" },
+          { text: "API 文档", link: "/digging-deeper/scramble" },
         ],
       },
       {
