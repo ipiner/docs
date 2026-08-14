@@ -44,7 +44,7 @@ class Menu extends Model
 | `restored`     | `restored`      |
 
 `subjectNameColumn()` 用于获取操作对象名称字段。
-默认读取 `modules.log.operation.subject_name_columns.{table}` 配置。
+默认读取 `pin.modules.log.operation.subject_name_columns.{table}` 配置。
 
 如果未配置对应字段，该方法返回空值，操作日志不会被记录。
 
@@ -169,7 +169,7 @@ User::withoutOperationLogging(function () use ($user) {
 `GET /api/system/log/operations` 用于分页查询操作日志，支持按业务对象、操作者、操作时间等条件筛选。
 
 ::: info
-路由前缀 `/api/system/log` 可通过 `modules.log.routes.api_prefix` 配置。
+路由前缀 `/api/system/log` 可通过 `pin.modules.log.routes.api_prefix` 配置。
 :::
 
 ### 操作日志筛选项
@@ -180,7 +180,7 @@ User::withoutOperationLogging(function () use ($user) {
 
 ### 操作日志配置
 
-`modules.log.operation` 用于配置操作日志：
+`pin.modules.log.operation` 用于配置操作日志：
 
 ```php
 

@@ -57,7 +57,7 @@ Log::create($payload);
 `GET /api/system/log/activities` 用于分页查询行为日志，支持按业务对象、操作者、操作时间等条件筛选。
 
 ::: info
-路由前缀 `/api/system/log` 可通过 `modules.log.routes.api_prefix` 配置。
+路由前缀 `/api/system/log` 可通过 `pin.modules.log.routes.api_prefix` 配置。
 :::
 
 ### 行为日志筛选项
@@ -68,7 +68,7 @@ Log::create($payload);
 
 ### 行为日志配置
 
-`modules.log.activity` 用于配置行为日志：
+`pin.modules.log.activity` 用于配置行为日志：
 
 ```php
 

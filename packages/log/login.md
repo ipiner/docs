@@ -62,7 +62,7 @@ Log::create($payload);
 `GET /api/system/log/logins` 用于分页查询登录日志，支持按业务对象、操作者、操作时间等条件筛选。
 
 ::: info
-路由前缀 `/api/system/log` 可通过 `modules.log.routes.api_prefix` 配置。
+路由前缀 `/api/system/log` 可通过 `pin.modules.log.routes.api_prefix` 配置。
 :::
 
 ### 登录日志筛选项
@@ -73,7 +73,7 @@ Log::create($payload);
 
 ### 登录日志配置
 
-`modules.log.login` 用于配置登录日志：
+`pin.modules.log.login` 用于配置登录日志：
 
 ```php
 
