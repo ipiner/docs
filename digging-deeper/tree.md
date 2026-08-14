@@ -162,8 +162,9 @@ $ancestors = $phoneAccessory->ancestors();
 返回：
 
 ```
+电子产品
 手机
-手机壳
+手机配件
 ```
 
 ::: info
@@ -216,7 +217,7 @@ $fullName = $phoneCase->fullName;
 返回：
 
 ```
-手机 / 手机配件 / 手机壳
+电子产品 / 手机 / 手机配件 / 手机壳
 ```
 
 完整名称默认使用 `/` 分隔，也可以通过 `namePath()` 方法指定分隔符：
@@ -228,7 +229,7 @@ $fullName = $phoneCase->namePath(' > ');
 返回：
 
 ```
-手机 > 手机配件 > 手机壳
+电子产品 > 手机 > 手机配件 > 手机壳
 ```
 
 如果需要获取名称数组，可以将分隔符设置为 `null`：
@@ -236,7 +237,7 @@ $fullName = $phoneCase->namePath(' > ');
 ```php
 $names = $phoneCase->namePath(null);
 
-// ['手机', '手机配件', '手机壳']
+// ['电子产品', '手机', '手机配件', '手机壳']
 ```
 
 ### 查询排序 {#ordered-query}
