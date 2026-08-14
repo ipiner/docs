@@ -266,7 +266,7 @@ Pin 支持两种路由注册方式：单个注册和批量注册。
 
 ### 单个注册 {#register-single}
 
-每个枚举 case 都可以单独注册。注册时，还可以指定中间件和权限标识。
+每个枚举 case 都可以单独注册。注册时，还可以指定中间件。
 
 使用闭包作为处理器：
 
@@ -286,10 +286,6 @@ UserRoute::Create->register(
     middlewares: [DecodePassword::class, 'verified'],
 );
 ```
-
-::: info
-`register()` 未显式指定中间件或权限标识时，会使用[路由属性](#attributes)中 `#[Middleware]` 和 `#[Access]` 声明的配置。
-:::
 
 ### 批量注册 {#register-batch}
 
