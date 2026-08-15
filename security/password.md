@@ -12,50 +12,11 @@ Pin 的 `Password` 模块用于处理应用中的密码转换、存储和校验�
 
 Pin 将密码处理分为**密码编码、请求转换和密码存储**三个阶段。
 
-```text
-用户输入密码
-    │
-    ▼
-encode()
-    │
-    │  标准密码编码
-    ▼
-encodeToRequest()
-    │
-    │  请求密码
-    ▼
-HTTP 请求
-    │
-    ▼
-decodeFromRequest()
-    │
-    │  标准密码编码
-    ├──────────────┐
-    ▼              ▼
-密码验证         hash()
-                 │
-                 ▼
-              密码哈希
-                 │
-                 ▼
-               数据库
-```
-
 ### `encode()`
 
 `encode()` 用于将用户输入转换为标准密码编码。
 
 当前使用 `MD5` 对密码进行编码，并将结果转换为大写：
-
-```txt
-用户输入
-  ↓
-转换为大写
-  ↓
-MD5
-  ↓
-32 位大写字符串
-```
 
 ```php
 use Pin\Support\Facades\Password;
@@ -76,16 +37,6 @@ $encoded = Password::encode('secret');
 `encodeToRequest()` 用于将标准密码编码转换为接口请求格式。
 
 请求密码使用 [AES 加密](/security/crypt#aes)，并采用随机密钥生成请求值：
-
-```
-标准密码编码
-    ↓
-随机密钥
-    ↓
-AES 加密
-    ↓
-请求密码
-```
 
 ```php
 use Pin\Support\Facades\Password;
@@ -178,14 +129,6 @@ await request.post("/api/profile/password", {
 `decodeFromRequest()` 用于解析请求密码，将请求中的密码还原为标准密码编码。
 
 解析过程与 `encodeToRequest()` 相反：
-
-```
-请求密码
-    ↓
-AES 解密
-    ↓
-标准密码编码
-```
 
 ```php
 use Pin\Support\Facades\Password;
