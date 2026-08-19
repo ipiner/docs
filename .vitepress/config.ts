@@ -119,8 +119,8 @@ export default defineConfig({
       },
     ],
     footer: {
-      message: "基于 MIT 许可发布",
-      copyright: "版权所有 © 2026 Pin",
+      copyright:
+        '© ipiner <a target="_blank" href="https://beian.miit.gov.cn/">粤ICP备19120216号-2</a>',
     },
     logo: {
       src: "/logo.svg",
