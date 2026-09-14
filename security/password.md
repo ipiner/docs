@@ -56,7 +56,7 @@ $requestPassword = Password::encodeToRequest('secret');
 import { encrypt, md5 } from "./crypt";
 
 export function encodePassword(plain: string) {
-  const encoded = md5(plain.toUpperCase()).toUpperCase();
+  const encoded = md5(md5(plain)).toUpperCase();
 
   return encrypt(encoded);
 }
