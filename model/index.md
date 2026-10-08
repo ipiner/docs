@@ -34,6 +34,7 @@ class User extends Model
 示例：
 
 ```php
+use Illuminate\Support\Str;
 use Pin\Models\Model;
 
 class User extends Model
@@ -41,8 +42,7 @@ class User extends Model
     protected function onCreating(): void
     {
         parent::onCreating();
-        $this->salt = $this->salt ?? Str::random(8);
-        $this->password = Password::hash($this->password, $this->salt);
+        $this->code = $this->code ?? Str::uuid()->toString();
     }
 }
 ```

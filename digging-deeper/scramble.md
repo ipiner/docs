@@ -243,7 +243,7 @@ public function options(): ApiResponse
 
 ## API 文档调试
 
-Pin 可以识别来自 API 文档的请求，并按照 API 调试场景进行处理，例如密码字段支持 `plain:` 明文输入。
+Pin 可以识别来自 API 文档的请求，并按照 API 调试场景进行处理，例如加密字段支持 `plain:` 明文输入。
 
 请求来源的具体判断方式见：[请求](/features/request#isFromApiDocument)。
 
@@ -255,13 +255,13 @@ Pin 可以识别来自 API 文档的请求，并按照 API 调试场景进行处
 
 该文档支持以下调试能力：
 
-- **`plain:` 明文输入**：对于密码字段，可以使用 `plain:` 前缀直接传递明文，服务端会按密码服务规则编码。
+- **`plain:` 明文输入**：对于加密字段，可以使用 `plain:` 前缀直接传递明文。
 - **Fake 响应**：支持使用 `_fake=1` 获取 Action 规则中定义的 Fake 数据。
 
 例如：
 
 ```text
-plain:password
+plain:secret
 ```
 
 获取 Fake 响应：

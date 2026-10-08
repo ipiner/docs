@@ -11,7 +11,8 @@ Pin 使用枚举定义路由。
 ```php
 namespace App\Routes;
 
-use Pin\Password\Middleware\DecodePassword;
+use Illuminate\Foundation\Http\Middleware\TrimStrings;
+use Pin\Route\Attributes\Middleware;
 use Pin\Route\IError;
 use Pin\Route\InteractsWithRoute;
 
@@ -21,7 +22,7 @@ enum UserRoute: string implements IError
 
     case Index = 'GET:/api/users';
 
-    #[Middleware(DecodePassword::class)]
+    #[Middleware(TrimStrings::class)]
     case Create = 'POST:/api/users';
 }
 ```
@@ -209,10 +210,10 @@ case Import = 'POST:/api/users/import';
 `#[Middleware]` 支持单个中间件或中间件数组：
 
 ```php
+use Illuminate\Foundation\Http\Middleware\TrimStrings;
 use Pin\Route\Attributes\Middleware;
-use Pin\Password\Middleware\DecodePassword;
 
-#[Middleware(DecodePassword::class)]
+#[Middleware(TrimStrings::class)]
 case Create = 'POST:/api/users';
 
 #[Middleware(['email', 'verified'])]
@@ -279,11 +280,11 @@ UserRoute::Create->register(
 指定中间件：
 
 ```php
-use Pin\Password\Middleware\DecodePassword;
+use Illuminate\Foundation\Http\Middleware\TrimStrings;
 
 UserRoute::Create->register(
     handler: [UserController::class, 'store'],
-    middlewares: [DecodePassword::class, 'verified'],
+    middlewares: [TrimStrings::class, 'verified'],
 );
 ```
 

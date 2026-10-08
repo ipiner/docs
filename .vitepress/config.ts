@@ -94,7 +94,6 @@ export default defineConfig({
         items: [
           { text: "认证", link: "/security/authentication" },
           { text: "加解密", link: "/security/crypt" },
-          { text: "密码", link: "/security/password" },
           { text: "Token（令牌）", link: "/security/token" },
         ],
       },

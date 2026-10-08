@@ -123,7 +123,7 @@ class CreateUserAction extends Action
         return [
             'username' => 'required|string',
             'email' => 'required|email',
-            'password' => 'required|fake:password',
+            'status' => 'required|integer|in:0,1',
         ];
     }
 }
@@ -145,7 +145,7 @@ POST /api/users
 {
   "username": "OuvPvCWjMdmiK5wE",
   "email": "ljacobi@gmail.com",
-  "password": "GPznbCjMA0Pd..."
+  "status": 1
 }
 ```
 
@@ -402,7 +402,7 @@ $data = $action->fakeData();
 ```php
 $data = CreateUserAction::fake([
     'username' => 'pin',
-    'password' => '123456'
+    'status' => 1
 ]);
 ```
 
@@ -412,7 +412,7 @@ $data = CreateUserAction::fake([
 [
     'username' => 'pin',
     'email' => 'ljacobi@gmail.com',
-    'password' => '123456'
+    'status' => 1
 ]
 ```
 

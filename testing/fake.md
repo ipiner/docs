@@ -24,7 +24,6 @@ Pin Faker 支持以下三种方式定义字段生成规则：
 - `integer`：生成随机整数。
 - `email`：生成邮箱地址。
 - `in`：从给定选项中随机选择一个值。
-- `password`：生成请求传输格式的密码。
 
 例如：
 
@@ -33,7 +32,6 @@ protected function rules(): array
 {
     return [
         'name' => 'required|string',
-        'password' => 'required|string|fake:password',
         'email' => 'required|email',
         'age' => 'required|integer|min:18|max:60',
         'status' => 'required|integer|in:0,1',
@@ -47,7 +45,6 @@ protected function rules(): array
 ```php
 [
     'name' => 'uGJb8fQpRz2xLmNc',
-    'password' => 'OgyvOWgcTQkzxkoVbUmT5Ox+2K...',
     'email' => 'lueilwitz.darian@example.net',
     'age' => 28,
     'status' => 1,
@@ -240,27 +237,6 @@ enum UserStatus: string
 
 生成结果为 `enabled` 或者 `disabled`。
 
-### password
-
-可以使用 `fake:password` 或 `Fake::password()` 生成请求传输格式的密码：
-
-```php
-'password' => 'required|fake:password'
-
-'password' => ['required', Fake::password()]
-```
-
-`Fake::password()` 默认使用 `test@123` 作为明文密码生成请求值。
-
-如果需要指定明文密码，可以传入对应值：
-
-```php
-'password' => 'required|fake:password,123456'
-
-'password' => ['required', Fake::password('123456')]
-```
-
-此时会使用 `123456` 生成请求传输格式的密码。
 
 ## FakerPHP 生成器
 
