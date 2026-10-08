@@ -158,7 +158,7 @@ public function store(): ApiResponse
 
 ### Updated
 
-`Updated` 用于描述更新接口返回更新状态和版本号：
+`Updated` 用于描述更新接口返回更新状态：
 
 ```php
 use Pin\Scramble\Updated;
@@ -172,7 +172,7 @@ public function update(): ApiResponse
 
     return $this->success($res);
 
-    // return $this->success(['updated' => true, 'v' => 1]);
+    // return $this->success(['updated' => true]);
 }
 ```
 

@@ -140,8 +140,7 @@ return $this->success($result);
   "code": 0,
   "message": "更新成功",
   "data": {
-    "updated": true,
-    "v": 123
+    "updated": true
   }
 }
 ```

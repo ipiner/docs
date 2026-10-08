@@ -155,22 +155,6 @@ protected function updated($model, array $data): void
 }
 ```
 
-### 乐观锁
-
-模型服务支持基于 `v` 字段的轻量级版本校验。
-
-当更新数据包含 `v` 字段时，会自动启用版本校验：
-
-- 当前版本与提交版本不一致时，抛出 `DataVersionMismatch` 异常。
-- 校验通过后执行更新，并自动将 `v` 加 `1`。
-
-```php
-$service->update($userId, [
-    'name' => 'Grace',
-    'v' => 3,
-]);
-```
-
 ### 删除数据
 
 使用 `delete()` 删除模型。参数可以是模型实例，也可以是模型 ID：
@@ -313,7 +297,7 @@ $service->context('missing', 'default'); // default
 | 结果           | `toArray()`                               | `message()`             |
 | -------------- | ----------------------------------------- | ----------------------- |
 | `CreateResult` | `['id' => ...]`                           | `添加成功`              |
-| `UpdateResult` | `['updated' => bool, 'v' => int 或 null]` | `更新成功` / `更新失败` |
+| `UpdateResult` | `['updated' => bool]`                     | `更新成功` / `更新失败` |
 | `DeleteResult` | `['deleted' => bool]`                     | `删除成功` / `删除失败` |
 
 ::: info

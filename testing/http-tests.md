@@ -234,26 +234,6 @@ UserRoute::Update
     ->updated(1);
 ```
 
-#### 版本控制
-
-`updated()` 支持基于版本字段 `v` 的乐观锁更新测试。
-
-当请求数据包含 `v` 字段时，`updated()` 会自动使用当前模型版本号替换该字段。
-
-例如，在 Action 的 `rules()` 中定义版本字段：
-
-```php
-protected function rules(): array
-{
-    return [
-        // ...
-        'v' => 'required|integer',
-    ];
-}
-```
-
-通过 Action 生成测试数据时，包含 `v` 字段的请求数据会自动携带当前模型版本号进行更新测试。
-
 ### `deleted()`
 
 `deleted()` 用于测试资源删除接口，并自动验证删除结果。

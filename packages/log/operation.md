@@ -258,12 +258,10 @@ use Pin\Modules\Log\Models\OperationLog;
   "subject_name": "运营",
   "changes": {
     "new": {
-      "v": 4,
       "menus": "\n添加文章\n编辑文章\n添加文章分类\n编辑文章分类\n",
       "remark": "文章/分类管理权限"
     },
     "old": {
-      "v": 3,
       "menus": "\n添加文章分类\n编辑文章分类\n管理员\n",
       "remark": ""
     }
