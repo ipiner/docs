@@ -29,14 +29,12 @@ $encoded = Password::encode('secret');
 标准密码编码用于后续的请求转换、密码存储和密码校验。
 
 ::: info
-`encode()` 用于统一密码处理格式，不用于密码存储。密码存使用 `hash()`。
+`encode()` 用于统一密码处理格式，不用于密码存储。密码存储使用 `hash()`。
 :::
 
 ### `encodeToRequest()` {#encodeToRequest}
 
-`encodeToRequest()` 用于将标准密码编码转换为接口请求格式。
-
-请求密码使用 [AES 加密](/security/crypt#aes)，并采用随机密钥生成请求值：
+`encodeToRequest()` 用于将明文密码转换为接口请求格式。
 
 ```php
 use Pin\Support\Facades\Password;
@@ -44,73 +42,28 @@ use Pin\Support\Facades\Password;
 $requestPassword = Password::encodeToRequest('secret');
 ```
 
-服务端可通过 `decodeFromRequest()` 将请求密码解析为标准密码编码。
+默认实现会返回 `Password::encode('secret')` 的结果，也就是 `32` 位大写编码字符串。
+
+服务端可通过 `decodeFromRequest()` 校验请求密码，并得到标准密码编码。
 
 #### 前端实现
 
 前端提交密码时，需要生成与 `Password::encodeToRequest()` 一致的请求密码格式。
 
-::: code-group
-
 ```ts [password.ts]
-import { encrypt, md5 } from "./crypt";
+import MD5 from "crypto-js/md5";
 
 export function encodePassword(plain: string) {
-  const encoded = md5(md5(plain)).toUpperCase();
-
-  return encrypt(encoded);
+  return MD5(MD5(plain).toString()).toString().toUpperCase();
 }
 ```
-
-```ts [crypt.ts]
-import AES from "crypto-js/aes";
-import { parse } from "crypto-js/enc-utf8";
-import MD5 from "crypto-js/md5";
-import pkcs7 from "crypto-js/pad-pkcs7";
-
-import { random } from "./string";
-
-export function encrypt(encoded: string) {
-  const key = random();
-  const s = parse(key);
-
-  return (
-    random(1, "ABCDEFGHIJKLMNOPQRSTUVWXYZ") + // 表示随机密钥
-    key +
-    AES.encrypt(encoded, s, {
-      iv: s,
-      padding: pkcs7,
-    }).toString()
-  );
-}
-
-export function md5(plain: string) {
-  return MD5(plain).toString();
-}
-```
-
-```ts [string.ts]
-const CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
-
-export function random(n = 16, chars = CHARS) {
-  const len = chars.length;
-  let result = "";
-  for (let i = 0; i < n; i++) {
-    result += chars.charAt(Math.floor(Math.random() * len));
-  }
-
-  return result;
-}
-```
-
-:::
 
 登录接口示例：
 
 ```ts
 await request.post("/api/login", {
   account: form.account,
-  password: encrypt(form.password),
+  password: encodePassword(form.password),
 });
 ```
 
@@ -126,9 +79,9 @@ await request.post("/api/profile/password", {
 
 ### `decodeFromRequest()`
 
-`decodeFromRequest()` 用于解析请求密码，将请求中的密码还原为标准密码编码。
+`decodeFromRequest()` 用于解析请求密码，将请求中的密码校验并返回为标准密码编码。
 
-解析过程与 `encodeToRequest()` 相反：
+请求值必须是合法的标准密码编码：
 
 ```php
 use Pin\Support\Facades\Password;
@@ -143,9 +96,7 @@ $encoded = Password::decodeFromRequest($requestPassword);
 ```php
 use Pin\Support\Facades\Password;
 
-$encoded = Password::decodeFromRequest(
-    $request->input('password')
-);
+$encoded = Password::encode('secret');
 
 $hash = Password::hash($encoded, $user->salt);
 
@@ -156,11 +107,23 @@ $valid = Password::check(
 );
 ```
 
+也可以处理接口提交的请求密码：
+
+```php
+use Pin\Support\Facades\Password;
+
+$encoded = Password::decodeFromRequest(
+    $request->input('password')
+);
+
+$user->password = Password::hash($encoded, $user->salt);
+```
+
 ### 自定义密码处理
 
 业务系统可以继承 `Pin\Password\Password`，根据现有密码处理规则覆盖默认实现。
 
-例如，使用 `MD5` 作为密码编码，并直接将编码结果作为请求密码：
+例如，使用 `SHA-256` 作为密码编码，并直接将编码结果作为请求密码：
 
 ```php
 <?php
@@ -191,19 +154,19 @@ class Password extends \Pin\Password\Password
     #[Override]
     public function encode(string $plain): string
     {
-        return md5($plain);
+        return hash('sha256', $plain);
     }
 
     #[Override]
     public function encodeToRequest(string $plain): string
     {
-        return md5($plain);
+        return hash('sha256', $plain);
     }
 
     #[Override]
     protected function isValid(string $password): bool
     {
-        return strlen($password) === 32 && $password === strtolower($password);
+        return strlen($password) === 64 && $password === strtolower($password);
     }
 }
 
@@ -252,13 +215,13 @@ $valid = Password::check(
 
 前端也需要按照业务实现的密码处理规则生成请求密码，确保与后端的 `encodeToRequest()` 和 `decodeFromRequest()` 保持一致。
 
-例如，上述实现使用 `MD5` 作为请求密码：
+例如，上述实现使用 `SHA-256` 作为请求密码：
 
 ```ts
-import md5 from "crypto-js/md5";
+import SHA256 from "crypto-js/sha256";
 
-export function encrypt(plain: string): string {
-  return md5(plain).toString();
+export function encodePassword(plain: string): string {
+  return SHA256(plain).toString();
 }
 ```
 
@@ -286,7 +249,7 @@ case Create = 'POST:/api/users';
 
 ```json
 {
-  "password": "request_password"
+  "password": "67A1E09BB1F83F5007DC119C14D663AA"
 }
 ```
 
